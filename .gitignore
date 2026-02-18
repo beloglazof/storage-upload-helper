@@ -1,0 +1,11 @@
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.example

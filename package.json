@@ -1,0 +1,20 @@
+{
+  "name": "storage-upload-helper",
+  "version": "1.0.0",
+  "description": "Vercel Edge Function для генерации presigned URL для S3",
+  "main": "api/presigned-url.js",
+  "scripts": {
+    "deploy": "vercel --prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.992.0",
+    "@aws-sdk/s3-presigned-post": "^3.992.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
