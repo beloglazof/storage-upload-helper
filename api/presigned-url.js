@@ -1,6 +1,8 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
 
+const ALLOWED_ORIGIN = "*";
+
 const client = new S3Client({
   region: process.env.S3_REGION || "ru-central-1",
   endpoint: process.env.S3_ENDPOINT,
@@ -20,7 +22,7 @@ export async function GET(request) {
   if (!key) {
     return new Response(
       JSON.stringify({ error: "Missing 'key' query parameter" }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { status: 400, headers: { "Content-Type": "application/json" } },
     );
   }
 
@@ -36,13 +38,16 @@ export async function GET(request) {
 
     return new Response(JSON.stringify(url), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      },
     });
   } catch (error) {
     console.error("Error creating presigned URL:", error);
     return new Response(
       JSON.stringify({ error: "Failed to create presigned URL" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 }
